@@ -1,0 +1,62 @@
+<!DOCTYPE html> 
+<html>
+<head>
+<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+<meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+<title>HSA-DSS Tool</title>
+<link rel="stylesheet" type="text/css" href="hsa.css">
+<link href="http://code.google.com/apis/maps/documentation/javascript/examples/default.css" rel="stylesheet" type="text/css" /> 
+<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false"></script> 
+<script src="http://hsadss.bee.cornell.edu/OwascoLake/table.jsonp"></script>
+<script type="text/javascript">
+function initialize() {
+  var owasco = new google.maps.LatLng(42.797, -76.444);
+  var mapOptions = {
+    zoom: 11,
+    center: owasco,
+    mapTypeId: google.maps.MapTypeId.HYBRID
+  }
+  var map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
+  var ctaLayer = new google.maps.KmlLayer("http://hsadss.bee.cornell.edu/sti_layers/OwascoLake/owasco20.kmz");
+  var wsbLayer = new google.maps.KmlLayer("http://hsadss.bee.cornell.edu/sti_layers/OwascoLake/ws_boundary.kmz"); 
+  ctaLayer.setMap(map);
+  wsbLayer.setMap(map);
+}
+function toggle() {
+  var explanation = document.getElementById("explanation");
+  var hide_div = document.getElementById("hide_div");
+  var hide_link = document.getElementById("hide_link");
+  if(explanation.style.display == "block") {
+    explanation.style.display = "none";
+    hide_link.innerHTML = "Show explanation";
+    initialize()
+  }
+  else {
+    explanation.style.display = "block";
+    hide_link.innerHTML = "Hide explanation";
+    initialize()
+  }
+} 
+</script>
+</head>
+
+<body onload="initialize()">
+<div id="hide_div"><a class="link" id="hide_link" href="javascript:toggle();">Hide explanation</a></div>
+<div id="explanation"  style="display:block; width:35%; float:right">
+      <p><b>High Risk Run-off Areas</b><br>
+      <a class="link" href="about.htm">About this tool</a><br>
+      <a class="link" href="index.html">Home</a><br>
+      </p>
+    <div id="explanation"> 
+<p>
+Wet Areas in Owasco Lake Watershed – by month<br>Some months are wetter than others. We modeled wet areas in Owasco Lake Watershed using weather data from the past ten years. The wet areas highlighted below are expected to generate the most runoff – so they are most sensitive to contaminants that travel in surface water. Chose a month to see the extent of wet areas expected in Owasco Lake Watershed for that month.
+<br><br><font color="red"><b>Red</b></font> – most likely to generate runoff after rain or snow melt.
+<br><br><font color="dark orange"><b>Orange</b></font>– possible to generate runoff after a large event.
+<br><br><font color="gold"><b>Yellow</b></font>– Small possibility of generating runoff.  Needs a very large event or very wet conditions.
+<br><br>Areas not highlighted – unlikely to generate runoff.
+</p>
+    </div>
+</div>
+<div id="map-canvas" style="width:auto;"></div>
+</body>
+</html>

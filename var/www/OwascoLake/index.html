@@ -1,0 +1,82 @@
+<!DOCTYPE html> 
+<html>
+<head>
+<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+<meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+<title>HSA-DSS Tool</title>
+<link rel="stylesheet" type="text/css" href="hsa.css">
+<link href="http://code.google.com/apis/maps/documentation/javascript/examples/default.css" rel="stylesheet" type="text/css" /> 
+<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false"></script> 
+<script src="http://hsadss.bee.cornell.edu/OwascoLake/table.jsonp"></script>
+<script type="text/javascript" src="./get_sti_overlay.js"> </script> <!-- get overlay location from getStiOverlay(int). currently, input must be multiple of 10, from 1 to 100 -->
+<script type="text/javascript" src="./sat_percent.js"> </script>
+<script type="text/javascript">
+function initialize() {
+  var stiOverlay = getStiOverlay(satPercentMax);
+  var owasco = new google.maps.LatLng(42.797, -76.444);
+  var mapOptions = {
+    zoom: 11,
+    center: owasco,
+    mapTypeId: google.maps.MapTypeId.HYBRID
+  }
+  var map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
+  var ctaLayer = new google.maps.KmlLayer(stiOverlay);
+  var wsbLayer = new google.maps.KmlLayer("http://hsadss.bee.cornell.edu/sti_layers/OwascoLake/ws_boundary.kmz"); 
+  ctaLayer.setMap(map);
+  wsbLayer.setMap(map);
+}
+function toggle() {
+  var banner = document.getElementById("banner");
+  var hide_div = document.getElementById("hide_div");
+  var hide_link = document.getElementById("hide_link");
+  if(banner.style.display == "block") {
+    banner.style.display = "none";
+    hide_link.innerHTML = "Show banner";
+    hide_div.style.display = "block";
+  }
+  else {
+    banner.style.display = "block";
+    hide_link.innerHTML = "Hide banner";
+    hide_div.style.display = "none";
+  }
+} 
+function displaySatPercent(theSatPercent) {
+    satPercentMax = theSatPercent;
+    initialize();
+}
+</script>
+</head>
+
+<body onload="initialize()">
+<div id="banner" align="top" width="100%" style="display: block">
+    <div id="logo"></div>
+    <div id="title_text">
+      <p>Hydrologically Sensitive Areas Model<br>
+      <a class="link" href="about.htm">About this tool</a>
+      <a class="link" href="http://waterqualitydss.wordpress.com/">Blog</a>
+      <a class="link" href="dutchhollow_high_risk_areas.html">View high risk areas</a>
+      <a class="link" id="hide_link" href="javascript:toggle();">Hide banner</a>
+      </p>
+    </div>
+    <div id="model_results" align="right">
+      <table id="model_results" summary="Model Results" border="1" >
+      <script type="text/javascript"> // t.<item>[0...n] are table items for rows 0...n.
+	  document.write('<tr><td>Date</td><td>Todays Observation</td><td>'+t.Date[0]+'</td> <td>'+t.Date[1]+'</td><td>'+t.Date[2]+'</td></tr>')
+	  document.write('<tr><td>'+t.Label[0]+'</td><td>'+t.Today[0]+'</td><td>'+t.Tomorrow[0]+'</td><td>'+t.DayAfter[0]+'</td><td>'+t.D3[0]+'</td></tr>')
+	  document.write('<tr><td>'+t.Label[1]+'</td><td>'+t.Today[1]+'</td><td>'+t.Tomorrow[1]+'</td><td>'+t.DayAfter[1]+'</td><td>'+t.D3[1]+'</td></tr>')
+	  document.write('<tr><td>'+t.Label[2]+'</td>')
+	  document.write('<td><a href="javascript:displaySatPercent('+t.Today[2]+');">'+t.Today[2]+'</a></td>')
+	  document.write('<td><a href="javascript:displaySatPercent('+t.Tomorrow[2]+');">'+t.Tomorrow[2]+'</a></td>')
+	  document.write('<td><a href="javascript:displaySatPercent('+t.DayAfter[2]+');">'+t.DayAfter[2]+'</a></td>')
+	  document.write('<td><a href="javascript:displaySatPercent('+t.D3[2]+');">'+t.D3[2]+'</a></td>')
+	  document.write('</tr>')
+          document.write('<tr><td align="center" colspan="5">Last updated '+t.LastRun[0]+'</td></tr>')
+	  document.write('</table>')
+	</script>
+      </table>
+    </div>
+</div>
+<div id="hide_div" style="display:none"><a class="link" id="hide_link" href="javascript:toggle();">Show banner</a></div>
+<div id="map-canvas"></div>
+</body>
+</html>

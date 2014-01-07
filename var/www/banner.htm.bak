@@ -1,0 +1,26 @@
+
+<style type="text/css">
+div#banner { height: 100%; }
+div#logo { float:left; }
+p#title { position:absolute; top:45px; left:80px; color:#B31B1B; font-weight:bold; font-size:x-small; } 
+div#model_results { position:relative; float:right; }
+table#model_results { font-size:12px; }
+table { 
+    font: 10px; 
+    text-align: left;
+    border-collapse: collapse;
+    }
+</style>
+    <div id="banner">
+    <img src="http://www.cornell.edu/img/cu_logo_unstyled.gif" alt="" align="left">
+    <p id="title">Hydrologically Sensitive Areas Model</p>
+    <div id="model_results" align="right">
+        <table id="model_results" summary="Model Results" border="1" >
+        <tr><td>Date</td><td>Sun, Feb 19 2012</td> <td>Mon, Feb 20 2012</td><td>Tue, Feb 21 2012</td></tr>
+        <tr><td>Forecast Rainfall, inches</td><td>0.09</td><td>0.0</td><td>0.0</td></tr>
+        <tr><td>Forecast Rainfall, probability</td><td></td><td>3.0</td><td>22.0</td></tr>
+        <tr><td>Watershed % Saturated</td><td>0</td><td>0</td><td>0</td></tr>
+        </table>
+    </div>
+</div>
+ 

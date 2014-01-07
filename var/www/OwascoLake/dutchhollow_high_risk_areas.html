@@ -1,0 +1,108 @@
+<!DOCTYPE html> 
+<html>
+<head>
+<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+<meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+<title>Dutch Hollow High Risk Areas</title>
+<link rel="stylesheet" type="text/css" href="hsa.css">
+<link href="http://code.google.com/apis/maps/documentation/javascript/examples/default.css" rel="stylesheet" type="text/css" /> 
+<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false"></script> 
+<script src="http://hsadss.bee.cornell.edu/OwascoLake/table.jsonp"></script>
+<script type="text/javascript">
+function initialize() {
+  var owasco = new google.maps.LatLng(42.797, -76.444);
+  var mapOptions = {
+    zoom: 11,
+    center: owasco,
+    mapTypeId: google.maps.MapTypeId.HYBRID
+  }
+  var map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
+  if (typeof month == 'undefined') {
+    month = "April";
+  };
+  var sat0 = new google.maps.KmlLayer(siteURL+"dutchhollow"+satLevels[month][0]+"red-lidar.kmz");
+  var sat1 = new google.maps.KmlLayer(siteURL+"dutchhollow"+satLevels[month][1]+"orange-lidar.kmz");
+  var sat2 = new google.maps.KmlLayer(siteURL+"dutchhollow"+satLevels[month][2]+"yellow-lidar.kmz");
+//  document.write(siteURL+"dutchhollow"+satLevels["August"][2]+"_yellow.kmz");
+//  var wsbLayer = new google.maps.KmlLayer("http://hsadss.bee.cornell.edu/sti_layers/OwascoLake/ws_boundary.kmz"); 
+//  wsbLayer.setMap(map);
+  sat2.setMap(map);
+  sat1.setMap(map);
+  sat0.setMap(map);
+}
+function toggle() {
+  var explanation = document.getElementById("explanation");
+  var hide_div = document.getElementById("hide_div");
+  var hide_link = document.getElementById("hide_link");
+  if(explanation.style.display == "block") {
+    explanation.style.display = "none";
+    hide_link.innerHTML = "Show explanation";
+    initialize()
+  }
+  else {
+    explanation.style.display = "block";
+    hide_link.innerHTML = "Hide explanation";
+    initialize()
+  }
+} 
+function getMonthLayers()
+{ 
+  var monthForm = document.monthForm.sbox;
+  month = document.monthForm.sbox.options[document.monthForm.sbox.selectedIndex].text;
+  initialize()
+}
+
+var siteURL = "http://hsadss.bee.cornell.edu/sti_layers/OwascoLake/";
+var satLevels = {'January': [30, 40, 50], // red, orange, yellow
+                 'February': [20, 30, 50],
+                 'March': [40, 50, 60],
+                 'April': [20, 40, 60],
+                 'May': [20, 30, 30],
+                 'June': [10, 20, 40],
+                 'July': [10, 40, 40],
+                 'August': [10, 20, 50],
+                 'September': [10, 30, 60],
+                 'October': [30, 40, 70],
+                 'November': [30, 40, 60],
+                 'December': [30, 30, 50]
+                };
+</script>
+</head>
+
+<body onload="initialize()">
+<div id="hide_div"><a class="link" id="hide_link" href="javascript:toggle();">Hide explanation</a></div>
+<div id="explanation"  style="display:block; width:35%; float:right">
+      <p><b>High Risk Run-off Areas</b><br>
+      <a class="link" href="about.htm">About this tool</a>
+      </p>
+
+    <div id="explanation"> 
+      <form name=monthForm>
+      <select name=sbox onChange="getMonthLayers()">
+      <option value="January">January</option>
+      <option value="February">February</option>
+      <option value="March">March</option>
+      <option value="April">April</option>
+      <option value="May">May</option>
+      <option value="June">June</option>
+      <option value="July">July</option>
+      <option value="August">August</option>
+      <option value="September">September</option>
+      <option value="October">October</option>
+      <option value="November">November</option>
+      <option value="December">December</option>
+      </select>
+      </form>
+
+<p>
+Wet Areas in Dutch Hollow sub-watershed – by month<br>Some months are wetter than others. We modeled wet areas in Owasco Lake Watershed using weather data from the past ten years. The wet areas highlighted below are expected to generate the most runoff – so they are most sensitive to contaminants that travel in surface water. Chose a month to see the extent of wet areas expected in Dutch Hollow Watershed for that month.
+<br><br><font color="red"><b>Red</b></font> – most likely to generate runoff after rain or snow melt.
+<br><br><font color="orange"><b>Orange</b></font>– possible to generate runoff after a large event.
+<br><br><font color="gold"><b>Yellow</b></font>– Small possibility of generating runoff.  Needs a very large event or very wet conditions.
+<br><br>Areas not highlighted – unlikely to generate runoff.
+</p>
+    </div>
+</div>
+<div id="map-canvas" style="width:auto;"></div>
+</body>
+</html>

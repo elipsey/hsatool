@@ -1,0 +1,22 @@
+# ignore map data
+*.kmz
+*.kml
+
+# ignore model data
+*.RData
+*.csv
+InputOutput
+DataTables
+
+# ignore editor backup files
+*~
+
+# ignore archive files, other misc. types, various output files
+*.zip
+*.jpg
+*.jpeg
+*.log
+*.pdf
+
+# ignore logo
+*cu_logo_unstyled.gif

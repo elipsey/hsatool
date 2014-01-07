@@ -1,0 +1,3 @@
+o1 var satPercent = 0 ;
+o2 var satPercentTomorrow = 0 ;
+o3 var satPercentDayAfterTomorrow = 20 ;
