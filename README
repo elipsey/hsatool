@@ -1,0 +1,18 @@
+hsatool
+============
+
+    The Hydrologically Sensitive Areas tool is a web application that models watershed state and displays areas at a high risk of run off on as overlays on a map via the Google maps API. 
+
+Dependencies to install before running
+======================================
+
+    The water model requires r-base-core, libxml2-dev (ubuntu) and the R langauge packages EcohydRology, and XML.
+
+How to run model
+=====================
+
+    The water model runs as a nightly cron job, for example:
+
+# m h  dom mon dow   command
+00 03  *   *   *     /usr/bin/Rscript /var/opt/hsa-models/RunModel.r >> /var/www/model.log 2>&1
+
