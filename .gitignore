@@ -19,4 +19,4 @@ DataTables
 *.pdf
 
 # ignore logo
-*cu_logo_unstyled.gif
+logo.gif
